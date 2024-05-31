@@ -10,7 +10,19 @@ const loginWithGoogle = (token) => async (dispatch) => {};
 
 const registerUser =
   ({ email, name, password }, navigate) =>
-  async (dispatch) => {};
+  async (dispatch) => {
+    try{
+      dispatch({type:types.REGISTER_USER_REQUEST})
+      const response = await api.post("/user", {email, name, password})
+      if (response.status !== 200) throw new Error (response.error)
+      dispatch({type:types.REGISTER_USER_SUCCESS})
+    dispatch(commonUiActions.showToastMessage("회원가입 완료!", "success"))
+    navigate("/login")
+    }catch(err) {
+      dispatch({type:types.REGISTER_USER_FAIL, payload: err.error})
+    }
+  };
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
