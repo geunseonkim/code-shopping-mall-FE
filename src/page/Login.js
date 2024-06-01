@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,13 +24,10 @@ const Login = () => {
     // 구글로 로그인 하기
   };
 
-  useEffect(() => {
-    error=""
-    if (user) {
-      navigate("/");
-    }
-  },[]);
-  
+  if (user) {
+    navigate("/");
+  }
+
   return (
     <>
       <Container className="login-area">
