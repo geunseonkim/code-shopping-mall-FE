@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 import { userActions } from "../action/userAction";
 import "../style/register.style.css";
-import api from "../utils/api"
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -20,24 +19,36 @@ const RegisterPage = () => {
   const [policyError, setPolicyError] = useState(false);
   const error = useSelector((state) => state.user.error);
 
+  useEffect(() => {
+    console.log("Error state:", error)
+}, [error])
+
   const register = async(event) => {
     event.preventDefault();
     // 비번 중복확인 일치하는지 확인
     // 이용약관에 체크했는지 확인
     // FormData에 있는 값을 가지고 백엔드로 넘겨주기
-    //성공후 로그인 페이지로 넘어가기
+    // 성공후 로그인 페이지로 넘어가기
+    // 이미 가입한 유저가 있다면 그 에러 메세지를 보여주기
 
     const {name, email, password, confirmPassword, policy} = formData
       if (password !== confirmPassword) {
-        return setPasswordError("비밀번호가 중복되지 않습니다.")
+        return setPasswordError("비밀번호가 일치하지 않습니다.")
       }
       if (!formData.policy) {
-        console.log("dd")
         return setPolicyError(true)
       }
       setPasswordError("")
       setPolicyError(false)
-      dispatch(userActions.registerUser({name, email, password}, navigate))
+      // dispatch(userActions.registerUser({name, email, password}, navigate))
+
+      try {
+        // 회원가입 성공 시
+        dispatch(userActions.registerUser({ name, email, password }, navigate));
+    } catch (err) {
+        // 회원가입 실패 시
+        dispatch({ type: 'REGISTER_USER_FAIL', payload: err.error });
+    }
   };
 
   const handleChange = (event) => {
