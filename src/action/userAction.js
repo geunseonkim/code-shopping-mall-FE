@@ -40,10 +40,13 @@ const registerUser =
     }
   };
 
+const clearError = () => ({ type: types.CLEAR_ERROR });
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
   logout,
   loginWithGoogle,
   registerUser,
+  clearError,
 };

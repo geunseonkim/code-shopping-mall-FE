@@ -19,9 +19,13 @@ const RegisterPage = () => {
   const [policyError, setPolicyError] = useState(false);
   const error = useSelector((state) => state.user.error);
 
-  useEffect(() => {
-    console.log("Error state:", error)
-}, [error])
+useEffect(() => {
+  console.log("Error state:", error);
+
+  return () => {
+    dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
+  };
+}, [dispatch]);
 
   const register = async(event) => {
     event.preventDefault();

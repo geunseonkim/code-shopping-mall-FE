@@ -24,8 +24,12 @@ function userReducer(state = initialState, action) {
     case types.LOGIN_FAIL:
     case types.REGISTER_USER_FAIL:
       return { ...state, loading: false, error: payload}
-      default:
-        return state
+
+    case types.CLEAR_ERROR:  // 오류 초기화 액션 처리
+      return { ...state, error: "" };
+
+    default:
+      return state;
   }
 }
 
