@@ -6,15 +6,15 @@ import Navbar from "../component/Navbar";
 import ToastMessage from "../component/ToastMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
-import { commonUiActions } from "../action/commonUiAction";
+// import { commonUiActions } from "../action/commonUiAction";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   // const user = { level: "admin" }; // 로그인 기능 만들고 지우기
-  const user = null; // 로그인 기능 만들고 지우기
+  // const user = null; // 로그인 기능 만들고 지우기
 
-  // const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
     dispatch(userActions.loginWithToken());
   }, []);

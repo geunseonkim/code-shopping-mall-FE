@@ -3,7 +3,6 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
-
 import "../style/login.style.css";
 
 const Login = () => {
@@ -15,11 +14,7 @@ const Login = () => {
   const error = useSelector((state) => state.user.error);
 
 useEffect(() => {
-  console.log("Error state:", error);
-
-  return () => {
-    dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
-  };
+    dispatch(userActions.clearError()); // 컴포넌트 마운트 시 오류 초기화
 }, [dispatch]);
 
   const loginWithEmail = (event) => {

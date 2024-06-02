@@ -20,12 +20,14 @@ const RegisterPage = () => {
   const error = useSelector((state) => state.user.error);
 
 useEffect(() => {
-  console.log("Error state:", error);
-
-  return () => {
-    dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
-  };
+  dispatch(userActions.clearError())
 }, [dispatch]);
+
+// useEffect(() => {
+//   return () => {
+//     dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
+//   };
+// }, [dispatch]);
 
   const register = async(event) => {
     event.preventDefault();
@@ -44,15 +46,7 @@ useEffect(() => {
       }
       setPasswordError("")
       setPolicyError(false)
-      // dispatch(userActions.registerUser({name, email, password}, navigate))
-
-      try {
-        // 회원가입 성공 시
-        dispatch(userActions.registerUser({ name, email, password }, navigate));
-    } catch (err) {
-        // 회원가입 실패 시
-        dispatch({ type: 'REGISTER_USER_FAIL', payload: err.error });
-    }
+      dispatch(userActions.registerUser({name, email, password}, navigate))
   };
 
   const handleChange = (event) => {
