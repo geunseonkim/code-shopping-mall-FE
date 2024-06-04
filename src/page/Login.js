@@ -13,9 +13,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const error = useSelector((state) => state.user.error);
 
-useEffect(() => {
-    dispatch(userActions.clearError()); // 컴포넌트 마운트 시 오류 초기화
-}, [dispatch]);
+// useEffect(() => {
+//     dispatch(userActions.clearError()); // 컴포넌트 마운트 시 오류 초기화
+// }, [dispatch]);
 
   const loginWithEmail = (event) => {
     event.preventDefault();

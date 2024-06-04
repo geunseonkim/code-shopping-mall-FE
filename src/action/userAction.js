@@ -7,10 +7,11 @@ const loginWithToken = () => async (dispatch) => {
   try {
     dispatch({type: types.LOGIN__WITH_TOKEN_REQUEST})
     const response = await api.get("/user/me")
+    
     if (response.status !== 200) {
       throw new Error(response.error)
     }
-    // console.log("rrrr", response)
+    
     dispatch({type: types.LOGIN__WITH_TOKEN_SUCCESS, payload: response.data})
     console.log("rrrr", response)
   } catch (err) {
