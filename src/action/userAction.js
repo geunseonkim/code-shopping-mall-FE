@@ -17,6 +17,11 @@ const loginWithToken = () => async (dispatch) => {
   } catch (err) {
     dispatch({type: types.LOGIN__WITH_TOKEN_FAIL, payload: err.error})
     dispatch(logout())
+
+    // 토큰이 없는 경우에도 오류가 안 보이게 처리
+    if (err.response && err.response.status === 400) {
+      console.log("토큰이 없습니다.") // 토큰이 없는 경우에는 특별한 조치를 취하지 않음
+    }
   }
 };
 
@@ -30,10 +35,16 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
     sessionStorage.setItem("token", response.data.token)
     dispatch({type:types.LOGIN_SUCCESS, payload: response.data})
   } catch (err) {
+    // dispatch({type:types.LOGIN_FAIL, payload: err.error})
+
+    // 토큰이 없는 경우에도 오류가 안 보이게 처리
+  if (err.response && err.response.status === 400) {
+    console.log("토큰이 없습니다.") // 토큰이 없는 경우에는 특별한 조치를 취하지 않음
+  } else {
     dispatch({type:types.LOGIN_FAIL, payload: err.error})
   }
+  }
 };
-
 
 const logout = () => async (dispatch) => {
   // delete user info
