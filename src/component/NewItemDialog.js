@@ -62,6 +62,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       setShowDialog(false)
       setFormData({...InitialFormData})
       setStock([])
+      setStockError(false);
     } else {
       // 상품 수정하기
     }
