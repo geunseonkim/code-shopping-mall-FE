@@ -29,6 +29,10 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stockError, setStockError] = useState(false);
   // console.log("sss", stock)
 
+  useEffect(() => {
+    dispatch(userActions.clearError())
+  }, [dispatch]);
+
   const handleClose = () => {
     //모든걸 초기화시키고
     setFormData({...InitialFormData})
