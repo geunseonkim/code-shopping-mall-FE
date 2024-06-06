@@ -12,14 +12,9 @@ const ProductAll = () => {
   // 처음 로딩하면 상품리스트 불러오기
   const {productList} = useSelector(state=>state.product)
 
-
-  // useEffect(()=>{
-  //   dispatch(productActions.getProductList())
-  // }, [])
-
-  useEffect(() => {
-    dispatch(productActions.getAllProducts());
-  }, [dispatch]);
+  useEffect(()=>{
+    dispatch(productActions.getProductList())
+  }, [])
 
   return (
     <Container>
