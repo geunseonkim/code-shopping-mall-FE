@@ -19,6 +19,21 @@ const getProductList = (query) => async (dispatch) => {
     dispatch({type:types.PRODUCT_GET_FAIL, payload:err.error})
   }
 };
+
+const getAllProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.ALL_PRODUCTS_GET_REQUEST });
+    const response = await api.get("/product");
+    if (response.status !== 200) {
+      throw new Error(response.error);
+    }
+    dispatch({type: types.ALL_PRODUCTS_GET_SUCCESS, payload: response.data.data});
+  } catch (err) {
+    dispatch({ type: types.ALL_PRODUCTS_GET_FAIL, payload: err.message });
+  }
+};
+
+
 const getProductDetail = (id) => async (dispatch) => {
   try{
     dispatch({type:types.GET_PRODUCT_DETAIL_REQUEST})
@@ -58,4 +73,5 @@ export const productActions = {
   deleteProduct,
   editProduct,
   getProductDetail,
+  getAllProducts,
 };

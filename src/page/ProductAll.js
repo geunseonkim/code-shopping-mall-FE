@@ -13,9 +13,13 @@ const ProductAll = () => {
   const {productList} = useSelector(state=>state.product)
 
 
-  useEffect(()=>{
-    dispatch(productActions.getProductList())
-  }, [])
+  // useEffect(()=>{
+  //   dispatch(productActions.getProductList())
+  // }, [])
+
+  useEffect(() => {
+    dispatch(productActions.getAllProducts());
+  }, [dispatch]);
 
   return (
     <Container>
