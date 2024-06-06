@@ -17,8 +17,6 @@ const ProductAll = () => {
     dispatch(productActions.getProductList())
   }, [])
 
-
-
   return (
     <Container>
       <Row>

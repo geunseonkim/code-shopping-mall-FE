@@ -9,17 +9,29 @@ const getProductList = (query) => async (dispatch) => {
     const response = await api.get("/product", {
       params: {...query}
     })
-    console.log("rrrqqq", response)
+    // console.log("rrrqqq", response)
     if (response.status !== 200) {
       throw new Error (response.error)
     }
     dispatch({type: types.PRODUCT_GET_SUCCESS, payload: response.data})
-    console.log("response", response.data.data)
+    // console.log("response", response.data.data)
   } catch (err) {
     dispatch({type:types.PRODUCT_GET_FAIL, payload:err.error})
   }
 };
-const getProductDetail = (id) => async (dispatch) => {};
+const getProductDetail = (id) => async (dispatch) => {
+  try{
+    dispatch({type:types.GET_PRODUCT_DETAIL_REQUEST})
+    const response = await api.get(`/product/${id}`)
+    console.log("rere", response)
+    if (response.status !== 200) {
+      throw new Error (response.error)
+    }
+    dispatch({type: types.GET_PRODUCT_DETAIL_SUCCESS, payload: response.data.data})
+  } catch (err) {
+    dispatch({type: types.GET_PRODUCT_DETAIL_FAIL, payload: err.error})
+  }
+};
 
 const createProduct = (formData) => async (dispatch) => {
   try{
