@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -7,10 +7,13 @@ import {
   faSearch,
   faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
+import SearchBox from "./SearchBox";
+import { productActions } from "../action/productAction";
+
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -40,6 +43,32 @@ const Navbar = ({ user }) => {
   const logout = () => {
     dispatch(userActions.logout());
   };
+
+
+  const [query, setQuery] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState({
+    page: query.get("page") || 1,
+    name: query.get("name") || "",
+  }); //검색 조건들을 저장하는 객체
+
+  //상품리스트 가져오기 (url쿼리 맞춰서)
+  useEffect(()=>{
+    dispatch(productActions.getProductList({...searchQuery}))
+  }, [query])
+
+  useEffect(() => {
+    //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+    if (searchQuery.name === "") {
+      delete searchQuery.name
+    }
+    // console.log("sss", searchQuery)
+    const params = new URLSearchParams(searchQuery) //객체를 쿼리 형태로 바꿔줌!
+    const query = params.toString()
+    // console.log("qqq", query)
+    navigate("?"+query)
+  }, [searchQuery]);
+
+
   return (
     <div>
       {showSearchBox && (
@@ -136,14 +165,21 @@ const Navbar = ({ user }) => {
           ))}
         </ul>
         {!isMobile && ( // admin페이지에서 같은 search-box스타일을 쓰고있음 그래서 여기서 서치박스 안보이는것 처리를 해줌
-          <div className="search-box landing-search-box ">
-            <FontAwesomeIcon icon={faSearch} />
-            <input
-              type="text"
-              placeholder="제품검색"
-              onKeyPress={onCheckEnter}
-            />
-          </div>
+          // <div className="search-box landing-search-box ">
+          //   <FontAwesomeIcon icon={faSearch} />
+          //   <input
+          //     type="text"
+          //     placeholder="제품검색"
+          //     onKeyPress={onCheckEnter}
+          //   />
+          // </div>
+          <SearchBox
+          className="landing-search-box"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          placeholder="제품검색"
+          field="name"
+        />
         )}
       </div>
     </div>

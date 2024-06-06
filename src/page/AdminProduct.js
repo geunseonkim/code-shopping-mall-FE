@@ -12,7 +12,7 @@ import ProductTable from "../component/ProductTable";
 
 const AdminProduct = () => {
   const navigate = useNavigate();
-  const {productList} = useSelector(state=>state.product)
+  const {productList, totalPageNum} = useSelector(state=>state.product)
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
@@ -35,11 +35,19 @@ const AdminProduct = () => {
 
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(()=>{
-    dispatch(productActions.getProductList())
-  }, [])
+    dispatch(productActions.getProductList({...searchQuery}))
+  }, [query])
 
   useEffect(() => {
     //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+    if (searchQuery.name === "") {
+      delete searchQuery.name
+    }
+    // console.log("sss", searchQuery)
+    const params = new URLSearchParams(searchQuery) //객체를 쿼리 형태로 바꿔줌!
+    const query = params.toString()
+    // console.log("qqq", query)
+    navigate("?"+query)
   }, [searchQuery]);
 
   const deleteItem = (id) => {
@@ -60,7 +68,13 @@ const AdminProduct = () => {
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
+    console.log("selected", selected)
+    setSearchQuery({...searchQuery, page: selected+ 1})
   };
+
+  // searchBox에서 검색어를 읽어옴. -> press Enter -> searchQuery 객체 업데이트 {name: 스트레이트 팬츠}
+  // -> searchQuery 객체 안에 아이템 기준으로 url 생성해서 호출 &name=스트레이트+팬츠
+  // -> url 쿼리 읽어옴. -> url 쿼리 기준으로 BE에 검색 조건과 함께 호출.
 
   return (
     <div className="locate-center">
@@ -87,8 +101,8 @@ const AdminProduct = () => {
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
-          pageCount={100}
-          forcePage={2} // 1페이지면 2임 여긴 한개씩 +1 해야함
+          pageCount={totalPageNum}
+          forcePage={searchQuery.page - 1} // 1페이지면 2임 여긴 한개씩 +1 해야함
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
@@ -100,9 +114,9 @@ const AdminProduct = () => {
           breakLabel="..."
           breakClassName="page-item"
           breakLinkClassName="page-link"
-          containerClassName="pagination"
+          containerClassName="pagination display-center list-style-none"
           activeClassName="active"
-          className="display-center list-style-none"
+          // className="display-center list-style-none"
         />
       </Container>
 

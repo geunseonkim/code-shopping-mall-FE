@@ -10,13 +10,21 @@ const ProductAll = () => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.product.error);
   // 처음 로딩하면 상품리스트 불러오기
+  const {productList} = useSelector(state=>state.product)
+
+
+  useEffect(()=>{
+    dispatch(productActions.getProductList())
+  }, [])
+
+
 
   return (
     <Container>
       <Row>
-        <Col md={3} sm={12}>
-          <ProductCard />
-        </Col>
+        {/* <Col md={3} sm={12}> */}
+          <ProductCard data={productList}/>
+        {/* </Col> */}
       </Row>
     </Container>
   );

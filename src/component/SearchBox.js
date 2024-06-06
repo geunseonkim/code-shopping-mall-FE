@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "react-router-dom";
 
-const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
+const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field, className }) => {
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
@@ -13,7 +13,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
     }
   };
   return (
-    <div className="search-box">
+    <div className={`search-box ${className}`}>
       <FontAwesomeIcon icon={faSearch} />
       <input
         type="text"

@@ -6,12 +6,15 @@ import { commonUiActions } from "./commonUiAction";
 const getProductList = (query) => async (dispatch) => {
   try{
     dispatch({type:types.PRODUCT_GET_REQUEST})
-    const response = await api.get("/product")
+    const response = await api.get("/product", {
+      params: {...query}
+    })
+    console.log("rrrqqq", response)
     if (response.status !== 200) {
       throw new Error (response.error)
     }
-    dispatch({type: types.PRODUCT_GET_SUCCESS, payload: response.data.products})
-    // console.log("response", response.data.products)
+    dispatch({type: types.PRODUCT_GET_SUCCESS, payload: response.data})
+    console.log("response", response.data.data)
   } catch (err) {
     dispatch({type:types.PRODUCT_GET_FAIL, payload:err.error})
   }
