@@ -37,10 +37,13 @@ const deleteProduct = (id) => async (dispatch) => {};
 
 const editProduct = (formData, id) => async (dispatch) => {};
 
+const clearError = () => ({ type: types.CLEAR_ERROR });
+
 export const productActions = {
   getProductList,
   createProduct,
   deleteProduct,
   editProduct,
   getProductDetail,
+  clearError,
 };

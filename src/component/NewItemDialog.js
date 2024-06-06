@@ -30,7 +30,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   // console.log("sss", stock)
 
   useEffect(() => {
-    dispatch(userActions.clearError())
+    dispatch(productActions.clearError())
   }, [dispatch]);
 
   const handleClose = () => {
