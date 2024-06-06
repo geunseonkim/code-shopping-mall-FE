@@ -29,10 +29,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stockError, setStockError] = useState(false);
   // console.log("sss", stock)
 
-  useEffect(() => {
-    dispatch(productActions.clearError())
-  }, [dispatch]);
-
   const handleClose = () => {
     //모든걸 초기화시키고
     setFormData({...InitialFormData})
@@ -64,6 +60,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       setShowDialog(false)
       setFormData({...InitialFormData})
       setStock([])
+      dispatch(productActions.clearError())
     } else {
       // 상품 수정하기
     }
