@@ -34,6 +34,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     setFormData({...InitialFormData})
     // 다이얼로그 닫아주기
     setShowDialog(false)
+    setStock([]);
+    setStockError(false);
   };
 
   const handleSubmit = (event) => {

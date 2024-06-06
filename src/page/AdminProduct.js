@@ -56,7 +56,6 @@ const AdminProduct = () => {
     setMode("new")
     // 다이얼로그 열어주기
     setShowDialog(true)
-    dispatch(productActions.clearError())
   };
 
   const handlePageClick = ({ selected }) => {
