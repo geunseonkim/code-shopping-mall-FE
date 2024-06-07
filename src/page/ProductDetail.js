@@ -72,6 +72,7 @@ const ProductDetail = () => {
             <Dropdown.Menu className="size-drop-down">
               <Dropdown.Item>M</Dropdown.Item>
             </Dropdown.Menu>
+
           </Dropdown>
           <div className="warning-message">
             {sizeError && "사이즈를 선택해주세요."}

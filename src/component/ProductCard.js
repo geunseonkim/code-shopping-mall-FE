@@ -4,29 +4,23 @@ import { currencyFormat } from "../utils/number";
 import { Col} from "react-bootstrap";
 
 
-const ProductCard = ({data}) => {
+const ProductCard = ({item}) => {
   const navigate = useNavigate();
   const showProduct = (id) => {
     // 상품 디테일 페이지로 가기
     navigate(`/product/${id}`);
   };
-
-  // console.log("ddd", data)
   
   return (
-    data.map((item, idx)=>(
-      <Col md={3} sm={12}>
-        <div className="card" key={idx} onClick={() => showProduct(item._id)}>
+        <div className="card" onClick={() => showProduct(item._id)}>
         <img
-          src={item.image}
-          alt=""
+          src={item?.image}
+          alt={item?.image}
         />
-        <div>{item.name}</div>
-        <div>₩ {item.price}</div>
+        <div>{item?.name}</div>
+        <div>₩ {currencyFormat(item?.price)}</div>
         </div>
-      </Col>
-    ))
-  );
+    )
 };
 
 export default ProductCard;
