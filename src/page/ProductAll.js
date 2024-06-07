@@ -38,7 +38,7 @@ const ProductAll = () => {
             {name === "" ? (
               <h2>there are no register products</h2>
             ) : (
-              <h2>not found {name}`</h2>
+              <h2>not found {name}</h2>
             )}
           </div>
         )}
