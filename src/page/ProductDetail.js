@@ -69,9 +69,17 @@ const ProductDetail = () => {
               {size === "" ? "사이즈 선택" : size.toUpperCase()}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu className="size-drop-down">
+            {/* <Dropdown.Menu className="size-drop-down">
               <Dropdown.Item>M</Dropdown.Item>
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
+
+            <Dropdown.Menu className="size-drop-down">
+                            {Object.entries(productDetail.stock).map(([option, qty]) => (
+                                <Dropdown.Item key={option} eventKey={option}>
+                                    {`${option.toUpperCase()}: ${qty} left`}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
 
           </Dropdown>
           <div className="warning-message">
