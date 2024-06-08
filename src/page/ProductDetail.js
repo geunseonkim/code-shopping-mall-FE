@@ -74,12 +74,17 @@ const ProductDetail = () => {
             </Dropdown.Menu> */}
 
             <Dropdown.Menu className="size-drop-down">
-                            {Object.entries(productDetail.stock).map(([option, qty]) => (
-                                <Dropdown.Item key={option} eventKey={option}>
-                                    {`${option.toUpperCase()}: ${qty} left`}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
+              {productDetail && productDetail.stock ? (
+                Object.entries(productDetail.stock).map(([option, qty]) => (
+                  <Dropdown.Item key={option} eventKey={option}>
+                    {`${option.toUpperCase()}: ${qty} left`}
+                  </Dropdown.Item>
+                ))
+              ) : (
+                <Dropdown.Item disabled>재고 정보가 없습니다.</Dropdown.Item>
+              )}
+            </Dropdown.Menu>
+
 
           </Dropdown>
           <div className="warning-message">
