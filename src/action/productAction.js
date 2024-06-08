@@ -28,7 +28,7 @@ const getProductDetail = (id) => async (dispatch) => {
     if (response.status !== 200) {
       throw new Error (response.error)
     }
-    dispatch({type: types.GET_PRODUCT_DETAIL_SUCCESS, payload: response.data.data})
+    dispatch({type: types.GET_PRODUCT_DETAIL_SUCCESS, payload: response.data})
   } catch (err) {
     dispatch({type: types.GET_PRODUCT_DETAIL_FAIL, payload: err.error})
   }

@@ -24,7 +24,7 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_GET_SUCCESS:
       return {...state, loading: false, error: "", productList: payload.data, totalPageNum: payload.totalPageNum}
     case types.GET_PRODUCT_DETAIL_SUCCESS:
-    return { ...state, loading: false, error: "", productDetail: payload};
+    return { ...state, loading: false, error: "", productDetail: payload.data};
     case types.PRODUCT_CREATE_FAIL:
     case types.PRODUCT_GET_FAIL:
     case types.GET_PRODUCT_DETAIL_FAIL:
