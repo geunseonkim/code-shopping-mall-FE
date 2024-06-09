@@ -10,7 +10,7 @@ const initialState = {
   error: "",
   cartItemQty: 0,
   cartList: [],
-  totalPrice: 0
+  totalPrice: 0,
 };
 
 function cartReducer(state = initialState, action) {
@@ -18,21 +18,48 @@ function cartReducer(state = initialState, action) {
   switch (type) {
     case types.ADD_TO_CART_REQUEST:
     case types.GET_CART_LIST_REQUEST:
-      return {...state, loading: true}
+    case types.DELETE_CART_ITEM_REQUEST:
+    case types.UPDATE_CART_ITEM_REQUEST:
+    case types.GET_CART_QTY_REQUEST:
+      return { ...state, loading: true };
+
     case types.ADD_TO_CART_SUCCESS:
-      return {...state, loading: false, cartItemQty: payload} // 수정됨!
-    case types.GET_CART_LIST_SUCCESS:
-      // return {...state, cartList: payload}
+    case types.DELETE_CART_ITEM_SUCCESS:
+      return { ...state, loading: false, cartItemQty: payload }; // 수정됨!
+
+    case types.UPDATE_CART_ITEM_SUCCESS:
       return {
-        ...state, loading: false, error: "", cartList: payload,
+        ...state,
+        loading: false,
+        cartList: payload,
         totalPrice: payload.reduce(
           (total, item) => (total += item.productId.price * item.qty),
           0
         ),
       };
+
+    case types.GET_CART_LIST_SUCCESS:
+      // return {...state, cartList: payload}
+      return {
+        ...state,
+        loading: false,
+        error: "",
+        cartList: payload,
+        totalPrice: payload.reduce(
+          (total, item) => (total += item.productId.price * item.qty),
+          0
+        ),
+      };
+
+    case types.GET_CART_QTY_SUCCESS:
+      return { ...state, cartItemCount: payload };
+
     case types.ADD_TO_CART_FAIL:
     case types.GET_CART_LIST_FAIL:
-      return {...state, loading: false, error: payload}
+    case types.DELETE_CART_ITEM_FAIL:
+    case types.UPDATE_CART_ITEM_FAIL:
+    case types.GET_CART_QTY_FAIL:
+      return { ...state, loading: false, error: payload };
     default:
       return state;
   }

@@ -14,10 +14,9 @@ import { userActions } from "../action/userAction";
 import SearchBox from "./SearchBox";
 import { productActions } from "../action/productAction";
 
-
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-  const { cartItemCount } = useSelector((state) => state.cart);
+  const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
@@ -44,7 +43,6 @@ const Navbar = ({ user }) => {
     dispatch(userActions.logout());
   };
 
-
   const [query, setQuery] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
@@ -52,22 +50,21 @@ const Navbar = ({ user }) => {
   }); //검색 조건들을 저장하는 객체
 
   //상품리스트 가져오기 (url쿼리 맞춰서)
-  useEffect(()=>{
-    dispatch(productActions.getProductList({...searchQuery}))
-  }, [query])
+  useEffect(() => {
+    dispatch(productActions.getProductList({ ...searchQuery }));
+  }, [query]);
 
   useEffect(() => {
     //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
     if (searchQuery.name === "") {
-      delete searchQuery.name
+      delete searchQuery.name;
     }
     // console.log("sss", searchQuery)
-    const params = new URLSearchParams(searchQuery) //객체를 쿼리 형태로 바꿔줌!
-    const query = params.toString()
+    const params = new URLSearchParams(searchQuery); //객체를 쿼리 형태로 바꿔줌!
+    const query = params.toString();
     // console.log("qqq", query)
-    navigate("?"+query)
+    navigate("?" + query);
   }, [searchQuery]);
-
 
   return (
     <div>
@@ -131,7 +128,7 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
                 <span style={{ cursor: "pointer" }}>{`쇼핑백(${
-                  cartItemCount || 0
+                  cartItemQty || 0
                 })`}</span>
               )}
             </div>
@@ -174,12 +171,12 @@ const Navbar = ({ user }) => {
           //   />
           // </div>
           <SearchBox
-          className="landing-search-box"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          placeholder="제품검색"
-          field="name"
-        />
+            className="landing-search-box"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            placeholder="제품검색"
+            field="name"
+          />
         )}
       </div>
     </div>
