@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import SearchBox from "./SearchBox";
 import { productActions } from "../action/productAction";
+import { cartActions } from "../action/cartAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,11 @@ const Navbar = ({ user }) => {
   ];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(cartActions.getCartQty());
+  }, [dispatch]);
+
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
@@ -127,9 +133,9 @@ const Navbar = ({ user }) => {
             <div onClick={() => navigate("/cart")} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`쇼핑백(${
-                  cartItemQty || 0
-                })`}</span>
+                <span style={{ cursor: "pointer" }}>
+                  {user ? `쇼핑백(${cartItemQty || 0})` : "쇼핑백(0)"}
+                </span>
               )}
             </div>
             <div

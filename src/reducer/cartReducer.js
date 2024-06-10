@@ -52,7 +52,7 @@ function cartReducer(state = initialState, action) {
       };
 
     case types.GET_CART_QTY_SUCCESS:
-      return { ...state, cartItemCount: payload };
+      return { ...state, cartItemQty: payload };
 
     case types.ADD_TO_CART_FAIL:
     case types.GET_CART_LIST_FAIL:
