@@ -9,8 +9,8 @@ const OrderStatusCard = ({ orderItem }) => {
       <Row className="status-card">
         <Col xs={2}>
           <img
-            src={orderItem.items[0].productId.image}
-            alt={orderItem.items[0].productId.image}
+            src={orderItem.items[0]?.productId?.image}
+            alt={orderItem.items[0]?.productId?.image}
             height={96}
           />
         </Col>
