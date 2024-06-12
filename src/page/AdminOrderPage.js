@@ -17,7 +17,7 @@ const AdminOrderPage = () => {
   const orderList = useSelector((state) => state.order.orderList);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
-    ordernum: query.get("ordernum") || "",
+    orderNum: query.get("orderNum") || "",
   });
   const [open, setOpen] = useState(false);
   const totalPageNum = useSelector((state) => state.order.totalPageNum);
@@ -37,8 +37,8 @@ const AdminOrderPage = () => {
   }, [query]);
 
   useEffect(() => {
-    if (searchQuery.ordernum === "") {
-      delete searchQuery.ordernum;
+    if (searchQuery.orderNum === "") {
+      delete searchQuery.orderNum;
     }
     const params = new URLSearchParams(searchQuery);
     const queryString = params.toString();
@@ -67,7 +67,7 @@ const AdminOrderPage = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             placeholder="오더번호"
-            field="ordernum"
+            field="orderNum"
           />
         </div>
 
