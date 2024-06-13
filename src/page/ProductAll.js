@@ -20,15 +20,16 @@ const ProductAll = () => {
       })
     );
   }, [query]);
-  
-  useEffect(()=>{
-    dispatch(productActions.getProductList())
-  }, [])
+
+  useEffect(() => {
+    dispatch(productActions.getProductList());
+  }, []);
 
   return (
-      <Container>
+    <Container>
       <Row>
-        {productList.length > 0 ? (productList.map((item) => (
+        {productList.length > 0 ? (
+          productList.map((item) => (
             <Col md={3} sm={12} key={item._id}>
               <ProductCard item={item} />
             </Col>
@@ -43,7 +44,7 @@ const ProductAll = () => {
           </div>
         )}
       </Row>
-      </Container>
+    </Container>
   );
 };
 
