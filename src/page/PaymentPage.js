@@ -31,7 +31,6 @@ const PaymentPage = () => {
     zip: "",
   });
   const { cartList, totalPrice } = useSelector((state) => state.cart);
-  // console.log("shipInfo", shipInfo);
 
   //맨처음 페이지 로딩할때는 넘어가고  오더번호를 받으면 성공페이지로 넘어가기
 
@@ -39,7 +38,6 @@ const PaymentPage = () => {
     event.preventDefault();
     //오더 생성하기
     const { firstName, lastName, contact, address, city, zip } = shipInfo;
-    console.log("cartList", cartList);
 
     const data = {
       totalPrice,

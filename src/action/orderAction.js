@@ -11,7 +11,6 @@ const createOrder = (payload, navigate) => async (dispatch) => {
       type: types.CREATE_ORDER_SUCCESS,
       payload: response.data.orderNum,
     });
-    console.log("payload", response);
     dispatch(cartActions.getCartQty());
     navigate("/payment/success");
   } catch (err) {
@@ -25,9 +24,9 @@ const getOrder = () => async (dispatch) => {
     dispatch({ type: types.GET_ORDER_REQUEST });
     const response = await api.get("/order/me");
     dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
-  } catch (error) {
-    dispatch({ type: types.GET_ORDER_FAIL, error: error });
-    dispatch(commonUiActions.showToastMessage(error, "error"));
+  } catch (err) {
+    dispatch({ type: types.GET_ORDER_FAIL, payload: err.error });
+    dispatch(commonUiActions.showToastMessage(err.error, "error"));
   }
 };
 const getOrderList = (query) => async (dispatch) => {
@@ -40,9 +39,9 @@ const getOrderList = (query) => async (dispatch) => {
       type: types.GET_ORDER_LIST_SUCCESS,
       payload: response.data,
     });
-  } catch (error) {
-    dispatch({ type: types.GET_ORDER_LIST_FAIL, error: error });
-    dispatch(commonUiActions.showToastMessage(error, "error"));
+  } catch (err) {
+    dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: err.error });
+    dispatch(commonUiActions.showToastMessage(err.error, "error"));
   }
 };
 
@@ -58,8 +57,8 @@ const updateOrder = (id, status) => async (dispatch) => {
       commonUiActions.showToastMessage("success order update", "success")
     );
     dispatch(getOrderList({ page: 1 }));
-  } catch (error) {
-    dispatch({ type: types.UPDATE_ORDER_FAIL, error: error });
+  } catch (err) {
+    dispatch({ type: types.UPDATE_ORDER_FAIL, payload: err.error });
   }
 };
 

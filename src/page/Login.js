@@ -14,10 +14,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const error = useSelector((state) => state.user.error);
 
-  // useEffect(() => {
-  //     dispatch(userActions.clearError()); // 컴포넌트 마운트 시 오류 초기화
-  // }, [dispatch]);
-
   const loginWithEmail = (event) => {
     event.preventDefault();
     //이메일,패스워드를 가지고 백엔드로 보내기
@@ -26,7 +22,6 @@ const Login = () => {
 
   const handleGoogleLogin = async (googleData) => {
     // 구글로 로그인 하기
-    console.log("googleData", googleData);
     dispatch(userActions.loginWithGoogle(googleData.credential));
   };
 
@@ -74,12 +69,7 @@ const Login = () => {
           <div className="text-align-center mt-2">
             <p>-외부 계정으로 로그인하기-</p>
             <div className="display-center">
-              <GoogleLogin
-                onSuccess={handleGoogleLogin}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
+              <GoogleLogin onSuccess={handleGoogleLogin} onError={() => {}} />
               {/* 
               1. 구글 버튼 가져오기.
               2. Oauth 로그인을 위해서 구글 api에 가입하고 클라이언트 키, 시크릿키 받아오기.

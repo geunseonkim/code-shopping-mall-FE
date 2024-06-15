@@ -23,12 +23,6 @@ const RegisterPage = () => {
     dispatch(userActions.clearError());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
-  //   };
-  // }, [dispatch]);
-
   const register = async (event) => {
     event.preventDefault();
     // 비번 중복확인 일치하는지 확인
@@ -54,14 +48,11 @@ const RegisterPage = () => {
     // 값을 읽어서 FormData에 넣어주기
 
     const { id, value, checked } = event.target;
-    // console.log(id, value, checked)
     if (id === "policy") {
       setFormData((formData) => ({ ...formData, [id]: checked }));
     } else {
       setFormData((formData) => ({ ...formData, [id]: value }));
     }
-    // const isChecked = event.target.checked;
-    // console.log("Checkbox is checked:", isChecked);
   };
 
   return (

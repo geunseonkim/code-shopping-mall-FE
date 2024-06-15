@@ -39,7 +39,6 @@ const Navbar = ({ user }) => {
 
   const handleColorFilter = (menu) => {
     navigate(`?name=${menu}`);
-    console.log("eee", menu);
     if (menu === "ALL") {
       navigate("/");
     }

@@ -27,78 +27,79 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
-  // console.log("sss", stock)
-
   const handleClose = () => {
     //모든걸 초기화시키고
-    setFormData({...InitialFormData})
+    setFormData({ ...InitialFormData });
     // 다이얼로그 닫아주기
-    setShowDialog(false)
+    setShowDialog(false);
     setStock([]);
     setStockError(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log("formData", formData)
-    // console.log("formData", stock)
     // [["s": "2"]["m": "3"]] => {s:2, m: 3}
     //재고를 입력했는지 확인, 아니면 에러
-    if(stock.length === 0) {
-      return setStockError(true)
+    if (stock.length === 0) {
+      return setStockError(true);
     }
     // 재고를 배열에서 객체로 바꿔주기
-    const totalStock = stock.reduce((total, item)=>{
-      return {...total, [item[0]]:parseInt(item[1])}
-    },{})
-    // console.log("formDataObjCheck", totalStock)
+    const totalStock = stock.reduce((total, item) => {
+      return { ...total, [item[0]]: parseInt(item[1]) };
+    }, {});
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
-      dispatch(productActions.createProduct({...formData,stock:totalStock}))
-      .then(()=>{
+      dispatch(
+        productActions.createProduct({ ...formData, stock: totalStock })
+      ).then(() => {
         dispatch(productActions.getProductList());
-      })
-      setShowDialog(false)
-      setFormData({...InitialFormData})
-      setStock([])
+      });
+      setShowDialog(false);
+      setFormData({ ...InitialFormData });
+      setStock([]);
       setStockError(false);
     } else {
       // 상품 수정하기
-      dispatch(productActions.editProduct({...formData, stock:totalStock}, selectedProduct._id))
-      setShowDialog(false)
+      dispatch(
+        productActions.editProduct(
+          { ...formData, stock: totalStock },
+          selectedProduct._id
+        )
+      );
+      setShowDialog(false);
     }
   };
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
-    const {id, value} = event.target
-    setFormData({...formData, [id]: value})
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
-    setStock([...stock, []])
+    setStock([...stock, []]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
-    const newStock = stock.filter((item, index)=> index !== idx)
-    setStock(newStock)
+    const newStock = stock.filter((item, index) => index !== idx);
+    setStock(newStock);
   };
 
   const handleSizeChange = (value, index) => {
     //재고 사이즈 변환하기
-    const newStock = [...stock]
-    newStock[index][0] = value
-    setStock(newStock)
+    const newStock = [...stock];
+    newStock[index][0] = value;
+    setStock(newStock);
   };
 
   const handleStockChange = (value, index) => {
     //재고 수량 변환하기
-    const newStock = [...stock]
-    newStock[index][1] = value
-    setStock(newStock)
+    const newStock = [...stock];
+    newStock[index][1] = value;
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
@@ -122,26 +123,27 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const uploadImage = (url) => {
     //이미지 업로드
-    setFormData({...formData, image: url})
+    setFormData({ ...formData, image: url });
   };
 
   useEffect(() => {
     if (showDialog) {
       if (mode === "edit") {
         // 선택된 데이터값 불러오기 (재고 형태 객체에서 어레이로 바꾸기)
-        setFormData({...selectedProduct})
+        setFormData({ ...selectedProduct });
         // {s: 3, m: 4} [[s,3],[m,4]]
-        const stockArray = Object.keys(selectedProduct.stock).map((size)=>[size, selectedProduct.stock[size],])
-        // console.log(stockArray) // [s, m]
-        setStock(stockArray)
+        const stockArray = Object.keys(selectedProduct.stock).map((size) => [
+          size,
+          selectedProduct.stock[size],
+        ]);
+        setStock(stockArray);
       } else {
         // 초기화된 값 불러오기
-        setFormData({...InitialFormData})
-        setStock([])
+        setFormData({ ...InitialFormData });
+        setStock([]);
       }
-      
     }
-  }, [showDialog,mode, selectedProduct]);
+  }, [showDialog, mode, selectedProduct]);
 
   //에러나면 토스트 메세지 보여주기
 

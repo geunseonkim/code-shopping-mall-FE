@@ -46,10 +46,8 @@ const AdminProduct = () => {
     if (searchQuery.color === "" || searchQuery.color === "ALL") {
       delete searchQuery.color;
     }
-    // console.log("sss", searchQuery)
     const params = new URLSearchParams(searchQuery); //객체를 쿼리 형태로 바꿔줌!
     const query = params.toString();
-    // console.log("qqq", query)
     navigate("?" + query);
   }, [searchQuery]);
 
@@ -75,7 +73,6 @@ const AdminProduct = () => {
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
-    console.log("selected", selected);
     setSearchQuery({ ...searchQuery, page: selected + 1 });
   };
 

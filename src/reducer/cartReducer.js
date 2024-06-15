@@ -25,7 +25,7 @@ function cartReducer(state = initialState, action) {
 
     case types.ADD_TO_CART_SUCCESS:
     case types.DELETE_CART_ITEM_SUCCESS:
-      return { ...state, loading: false, cartItemQty: payload }; // 수정됨!
+      return { ...state, loading: false, cartItemQty: payload };
 
     case types.UPDATE_CART_ITEM_SUCCESS:
       return {
@@ -39,7 +39,6 @@ function cartReducer(state = initialState, action) {
       };
 
     case types.GET_CART_LIST_SUCCESS:
-      // return {...state, cartList: payload}
       return {
         ...state,
         loading: false,

@@ -10,12 +10,10 @@ const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleQtyChange = (id, value) => {
-    //아이템 수량을 수정한다
     dispatch(cartActions.updateQty(id, value));
   };
 
   const deleteCart = (id) => {
-    //아이템을 지운다
     dispatch(cartActions.deleteCartItem(id));
   };
 

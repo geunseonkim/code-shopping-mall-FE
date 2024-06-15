@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
 import { commonUiActions } from "../action/commonUiAction";
 import Modal from "../component/Modal";
+import { favoriteAction } from "../action/favoriteAction";
 
 const ProductAll = () => {
   const dispatch = useDispatch();
@@ -17,14 +18,12 @@ const ProductAll = () => {
   const [showModal, setShowModal] = useState(false);
   const [noStock, setNoStock] = useState(false);
   const [underPrice, setUnderPrice] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const { favorite } = useSelector((state) => state.favorite) || [];
 
   useEffect(() => {
-    dispatch(
-      productActions.getProductList({
-        name,
-      })
-    );
-  }, [query]);
+    dispatch(favoriteAction.getFavorite());
+  }, [dispatch, user]);
 
   useEffect(() => {
     dispatch(productActions.getProductList({ name }));
@@ -48,6 +47,7 @@ const ProductAll = () => {
   return (
     <Container>
       <div
+        className="filterCheckBox"
         style={{
           marginBottom: "20px",
           fontSize: "16px",
@@ -81,7 +81,12 @@ const ProductAll = () => {
         {filterNoStockAndUnderPrice.length > 0 ? (
           filterNoStockAndUnderPrice.map((item) => (
             <Col md={3} sm={12} key={item._id}>
-              <ProductCard item={item} />
+              <ProductCard
+                item={item}
+                favorite={favorite?.some(
+                  (favorite) => favorite._id === item._id
+                )}
+              />
             </Col>
           ))
         ) : (

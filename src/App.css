@@ -77,7 +77,6 @@ body {
   position: absolute;
   top: 11px;
   right: 11px;
-  color: gold;
   font-size: 24px;
 }
 
@@ -219,8 +218,10 @@ body {
 .card-show {
   display: none;
   font-size: 20px;
-  word-break: keep-all;
-  white-space: nowrap;
+  /* word-break: keep-all; */
+  /* white-space: nowrxap; */
+  overflow: hidden;
+  text-overflow: ellipsis !important;
   text-align: center;
   font-weight: 800;
   width: 300px;
@@ -229,7 +230,7 @@ body {
   position: absolute;
   background-color: rgba(44, 44, 44, 0.577);
   box-sizing: border-box;
-  padding: 195px 107px;
+  padding: 150px 50px;
 }
 
 .choice {
@@ -357,6 +358,9 @@ body {
 }
 
 @media screen and (max-width: 63rem) {
+  .filterCheckBox {
+    margin-top: 70px;
+  }
   .hide {
     visibility: visible;
   }

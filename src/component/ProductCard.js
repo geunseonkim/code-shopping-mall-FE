@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { currencyFormat } from "../utils/number";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, favorite }) => {
   const navigate = useNavigate();
   const showProduct = (id) => {
     // 상품 디테일 페이지로 가기
@@ -27,8 +28,13 @@ const ProductCard = ({ item }) => {
         alt={item?.image}
       />
       {noStock() && <div className="productCard-noStockSign">품절</div>}
-
-      <FontAwesomeIcon icon={faStar} className="productCard-favoriteStar" />
+      <div className="productCard-favoriteStar">
+        {favorite ? (
+          <FontAwesomeIcon icon={faStar} style={{ color: "gold" }} />
+        ) : (
+          <FontAwesomeIcon icon={faStar} style={{ color: "white" }} />
+        )}
+      </div>
 
       <div className="card-show">
         <div>{item?.name}</div>
