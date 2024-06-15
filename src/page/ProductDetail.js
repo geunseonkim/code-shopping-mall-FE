@@ -63,19 +63,30 @@ const ProductDetail = () => {
 
   return (
     <Container className="product-detail-card">
-      <Row>
+      <Row style={{ marginBottom: "50px" }}>
         <Col sm={6}>
-          <img src={productDetail?.image} className="w-100" alt="image" />
+          <img
+            src={productDetail?.image}
+            className="w-100"
+            alt="image"
+            style={{ border: "7px solid white" }}
+          />
         </Col>
         <Col className="product-info-area" sm={6}>
-          <div className="product-info">
+          <div className="product-info product-detail-name">
             {productDetail?.name || "리넨셔츠"}
           </div>
-          <div className="product-info">
+          <div
+            className="product-info"
+            style={{ fontSize: "24px", fontWeight: "600", color: "white" }}
+          >
             {productDetail
               ? `₩ ${currencyFormat(productDetail.price)}`
               : "₩ 45,000"}
           </div>
+          <div
+            style={{ border: "1px solid white", marginBottom: "10px" }}
+          ></div>
           <div className="product-info">
             {productDetail?.description || "샘플설명"}
           </div>

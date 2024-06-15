@@ -43,6 +43,9 @@ const AdminProduct = () => {
     if (searchQuery.name === "") {
       delete searchQuery.name;
     }
+    if (searchQuery.color === "" || searchQuery.color === "ALL") {
+      delete searchQuery.color;
+    }
     // console.log("sss", searchQuery)
     const params = new URLSearchParams(searchQuery); //객체를 쿼리 형태로 바꿔줌!
     const query = params.toString();

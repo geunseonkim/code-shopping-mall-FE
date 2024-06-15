@@ -1,13 +1,19 @@
-
-.size-drop-down{
-    width:100%;
+.size-drop-down {
+  width: 100%;
 }
 
-.warning-message{
-    color:red;
+.warning-message {
+  color: red;
 }
 
-.product-info{
-    font-size: 20px;
-    margin-bottom: 10px;
+.product-info {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-detail-name {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 5px 5px 4px rgb(103, 103, 103);
 }

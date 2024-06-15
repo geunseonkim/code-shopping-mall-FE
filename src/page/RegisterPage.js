@@ -19,17 +19,17 @@ const RegisterPage = () => {
   const [policyError, setPolicyError] = useState(false);
   const error = useSelector((state) => state.user.error);
 
-useEffect(() => {
-  dispatch(userActions.clearError())
-}, [dispatch]);
+  useEffect(() => {
+    dispatch(userActions.clearError());
+  }, [dispatch]);
 
-// useEffect(() => {
-//   return () => {
-//     dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
-//   };
-// }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(userActions.clearError()); // 컴포넌트 언마운트 시 오류 초기화
+  //   };
+  // }, [dispatch]);
 
-  const register = async(event) => {
+  const register = async (event) => {
     event.preventDefault();
     // 비번 중복확인 일치하는지 확인
     // 이용약관에 체크했는지 확인
@@ -37,32 +37,31 @@ useEffect(() => {
     // 성공후 로그인 페이지로 넘어가기
     // 이미 가입한 유저가 있다면 그 에러 메세지를 보여주기
 
-    const {name, email, password, confirmPassword, policy} = formData
-      if (password !== confirmPassword) {
-        return setPasswordError("비밀번호가 일치하지 않습니다.")
-      }
-      if (!formData.policy) {
-        return setPolicyError(true)
-      }
-      setPasswordError("")
-      setPolicyError(false)
-      dispatch(userActions.registerUser({name, email, password}, navigate))
+    const { name, email, password, confirmPassword, policy } = formData;
+    if (password !== confirmPassword) {
+      return setPasswordError("비밀번호가 일치하지 않습니다.");
+    }
+    if (!formData.policy) {
+      return setPolicyError(true);
+    }
+    setPasswordError("");
+    setPolicyError(false);
+    dispatch(userActions.registerUser({ name, email, password }, navigate));
   };
 
   const handleChange = (event) => {
     event.preventDefault();
     // 값을 읽어서 FormData에 넣어주기
 
-    const {id, value, checked} = event.target
+    const { id, value, checked } = event.target;
     // console.log(id, value, checked)
     if (id === "policy") {
-      setFormData(formData => ({...formData, [id]: checked}))
+      setFormData((formData) => ({ ...formData, [id]: checked }));
     } else {
-      setFormData(formData => ({...formData, [id]: value}))
+      setFormData((formData) => ({ ...formData, [id]: value }));
     }
-      // const isChecked = event.target.checked;
-      // console.log("Checkbox is checked:", isChecked);
-
+    // const isChecked = event.target.checked;
+    // console.log("Checkbox is checked:", isChecked);
   };
 
   return (
@@ -129,7 +128,7 @@ useEffect(() => {
             checked={formData.policy}
           />
         </Form.Group>
-        <Button variant="danger" type="submit">
+        <Button variant="dark" type="submit">
           회원가입
         </Button>
       </Form>
