@@ -15,6 +15,8 @@ const ProductAll = () => {
   const [query, setQuery] = useSearchParams();
   const name = query.get("name");
   const [showModal, setShowModal] = useState(false);
+  const [noStock, setNoStock] = useState(false);
+  const [underPrice, setUnderPrice] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -28,19 +30,56 @@ const ProductAll = () => {
     dispatch(productActions.getProductList({ name }));
   }, [query]);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const filterNoStockAndUnderPrice = productList.filter((item) => {
+    if (noStock) {
+      const stockValue = Object.values(item.stock);
+      if (!stockValue.some((value) => value > 0 && item.status === "active")) {
+        return false;
+      }
+    }
+    if (underPrice) {
+      if (!(item.price <= 10000 && item.status === "active")) {
+        return false;
+      }
+    }
+    return true;
+  });
 
   return (
     <Container>
+      <div
+        style={{
+          marginBottom: "20px",
+          fontSize: "16px",
+          fontWeight: "600",
+          color: "white",
+          // display: "flex",
+          // justifyContent: "flex-end",
+        }}
+      >
+        <label for="CheckBoxNoStock" style={{ marginRight: "10px" }}>
+          <input
+            type="checkbox"
+            id="CheckBoxNoStock"
+            checked={noStock}
+            onChange={() => setNoStock((prev) => !prev)}
+          />{" "}
+          품절 상품 제외하기
+        </label>
+
+        <label for="checkUnderPrice">
+          <input
+            type="checkbox"
+            id="checkUnderPrice"
+            checked={underPrice}
+            onChange={() => setUnderPrice((prev) => !prev)}
+          />{" "}
+          초특가 10,000원 상품 만나보기
+        </label>
+      </div>
       <Row>
-        {productList.length > 0 ? (
-          productList.map((item) => (
+        {filterNoStockAndUnderPrice.length > 0 ? (
+          filterNoStockAndUnderPrice.map((item) => (
             <Col md={3} sm={12} key={item._id}>
               <ProductCard item={item} />
             </Col>
@@ -56,8 +95,7 @@ const ProductAll = () => {
         )}
       </Row>
 
-      {/* 모달을 여는 버튼 예시 */}
-      <button onClick={openModal} className="modal-button-fixed">
+      <button onClick={() => setShowModal(true)} className="modal-button-fixed">
         <img
           className="fixed-modal-img"
           style={{ width: "60px" }}
@@ -65,8 +103,7 @@ const ProductAll = () => {
         />
       </button>
 
-      {/* 모달 컴포넌트 */}
-      <Modal show={showModal} handleClose={closeModal}>
+      <Modal show={showModal} handleClose={() => setShowModal(false)}>
         <h2>신상품 출고 소식</h2>
         <img
           style={{ width: "450px", marginBottom: "10px" }}

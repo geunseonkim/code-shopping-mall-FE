@@ -7,7 +7,7 @@ body {
   background-repeat: none;
   background-size: cover;
 }
-/* Modal.css */
+/* Modal */
 .mainPage-modal-cover {
   position: fixed;
   z-index: 1;
@@ -23,7 +23,6 @@ body {
   border-radius: 50%;
   border: none;
 }
-
 .fixed-modal-img {
   border-radius: 50%;
 }
@@ -33,7 +32,6 @@ body {
 .display-none {
   display: none;
 }
-
 .mainPage-modal {
   position: fixed;
   background: white;
@@ -57,7 +55,31 @@ body {
   top: 10px;
   cursor: pointer;
 }
-/* Modal.css */
+
+/* productCard */
+.productCard-noStockSign {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 60px;
+  height: 30px;
+  background-color: red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+.productCard-favoriteStar {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  color: gold;
+  font-size: 24px;
+}
 
 .nav-header {
   display: flex;
